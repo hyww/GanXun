@@ -44,6 +44,12 @@ void splashScreen(){
 	colorPrint((BLUE+GREEN+RED+BRIGHT), "\nPress enter to start!!\n");
 }
 
+void printNum(int num){
+	char *nums[]={"   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
+	//int colors[]={(), (), (), (), (), (), (), (), (), ()};
+	int colors=BLUE+GREEN+RED+BRIGHT;
+	colorPrint(colors, nums[num]);
+}
 
 int main(){
 
