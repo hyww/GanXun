@@ -116,7 +116,7 @@ int main(){
 	
 	while(1){
 		input=getch();
-		if(con==3)break; //program ends when ctrl+c is pressed
+		if(input==3)break; //program ends when ctrl+c is pressed
 		
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
