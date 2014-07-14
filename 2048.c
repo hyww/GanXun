@@ -9,18 +9,19 @@
 #define BLUE 1
 #define BRIGHT 8
 
-
+//clear the terminal output
 void clear(){
 	system("cls");
 }
 
+//suspend for ms/1000 seconds. may be useless if we're not going to create animations
 void wait(int ms){
 	clock_t startTime;
 	startTime=clock();
 	while((double)(clock()-startTime)<ms);
 }
 
-
+//print string with colors
 void colorPrint(int color, char *str){
 	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 	SetConsoleTextAttribute ( hConsole, color );
@@ -28,6 +29,7 @@ void colorPrint(int color, char *str){
 	SetConsoleTextAttribute ( hConsole, (RED+GREEN+BLUE));
 }
 
+//the splash  screen shown when the game starts
 void splashScreen(){
 	char line1[]="¢~ùù¢¡¢~ùù¢¡  ¢~¢¡¢~ùù¢¡\n";
 	char line2[]="    ùøùø  ùø¢~¢£ùøùø  ùø\n";
@@ -44,11 +46,12 @@ void splashScreen(){
 	colorPrint((BLUE+GREEN+RED+BRIGHT), "\nPress enter to start!!\n");
 }
 
+//just like splashScreen(), but displays when you lose XD
 void gameOver(){
 
 }
 
-
+//in the program we use 0, 1, 2... instead of 2, 4, 8...
 void printNum(int num){
 	char *nums[]={"   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
 	//int colors[]={(), (), (), (), (), (), (), (), (), ()};
@@ -56,6 +59,7 @@ void printNum(int num){
 	colorPrint(colors, nums[num]);
 }
 
+//print out current status
 void refresh(int tiles[4][4]){
 	char *top="¢z¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢{\n";
 	char *middle="¢u¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢t\n";
@@ -84,6 +88,7 @@ void refresh(int tiles[4][4]){
 	
 }
 
+//change the status of tiles by moving in different directions
 void move(int tiles[4][4], int direction){
 	switch(direction){
 		case 0:
