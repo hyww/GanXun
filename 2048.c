@@ -44,6 +44,11 @@ void splashScreen(){
 	colorPrint((BLUE+GREEN+RED+BRIGHT), "\nPress enter to start!!\n");
 }
 
+void gameOver(){
+
+}
+
+
 void printNum(int num){
 	char *nums[]={"   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
 	//int colors[]={(), (), (), (), (), (), (), (), (), ()};
@@ -77,6 +82,23 @@ void refresh(int tiles[4][4]){
 	}
 	colorPrint(lineColor, bottom);
 	
+}
+
+void move(int tiles[4][4], int direction){
+	switch(direction){
+		case 0:
+			//up
+			break;
+		case 1:
+			//down
+			break;
+		case 2:
+			//left
+			break;
+		case 3:
+			//right
+			break;
+	}
 }
 
 int main(){
