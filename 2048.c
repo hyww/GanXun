@@ -80,6 +80,19 @@ void refresh(int tiles[4][4]){
 }
 
 int main(){
-
+	int tiles[4][4]={0};
+	char input;
+	
+	splashScreen();
+	scanf("%c", &input);
+	refresh(tiles);
+	
+	while(1){
+		input=getch();
+		if(con==3)break; //program ends when ctrl+c is pressed
+		
+		//Inputs: arrows, enter, q, ctrl+c, ....
+	}
+	
 	return 0;
 }
