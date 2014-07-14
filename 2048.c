@@ -28,6 +28,22 @@ void colorPrint(int color, char *str){
 	SetConsoleTextAttribute ( hConsole, (RED+GREEN+BLUE));
 }
 
+void splashScreen(){
+	char line1[]="¢~שש¢¡¢~שש¢¡  ¢~¢¡¢~שש¢¡\n";
+	char line2[]="    שרשר  שר¢~¢£שרשר  שר\n";
+	char line3[]="¢~שש¢£שר  שרשר  שרשאשש¢¡\n";
+	char line4[]="שר    שר  שר¢¢שששבשר  שר\n";
+	char line5[]="¢¢שש¢£¢¢שש¢£    ¢£¢¢שש¢£\n";
+	
+	clear();
+	colorPrint((RED+GREEN+BRIGHT), line1);
+	colorPrint((RED+BRIGHT), line2);
+	colorPrint((RED+BLUE+BRIGHT), line3);
+	colorPrint((BLUE+BRIGHT), line4);
+	colorPrint((BLUE+GREEN+BRIGHT), line5);
+	colorPrint((BLUE+GREEN+RED+BRIGHT), "\nPress enter to start!!\n");
+}
+
 
 int main(){
 
