@@ -51,6 +51,34 @@ void printNum(int num){
 	colorPrint(colors, nums[num]);
 }
 
+void refresh(int tiles[4][4]){
+	char *top="¢z¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢{\n";
+	char *middle="¢u¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢t\n";
+	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
+	int lineColor=(RED+BLUE+GREEN);
+	int i, j, k;
+	//int backColor[]={(), (), (), (), (), (), (), (), (), ()};  should be the same as colors in printNum()
+	int backColor=0;
+	
+	clear();
+	colorPrint(lineColor, top);
+	
+	for(k=0;k<4;k++){
+		for(j=0;j<3;j++){
+			colorPrint(lineColor, "|");
+			for(i=0;i<4;i++){
+				if(j!=1)colorPrint(backColor, "       ");
+				else printNum(tiles[i][j]);
+				colorPrint(lineColor, "|");
+			}
+			printf("\n");
+		}
+		if(k!=3)colorPrint(lineColor, middle);
+	}
+	colorPrint(lineColor, bottom);
+	
+}
+
 int main(){
 
 	return 0;
