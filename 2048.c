@@ -20,6 +20,15 @@ void wait(int ms){
 	while((double)(clock()-startTime)<ms);
 }
 
+
+void colorPrint(int color, char *str){
+	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
+	SetConsoleTextAttribute ( hConsole, color );
+	printf("%s", str);
+	SetConsoleTextAttribute ( hConsole, (RED+GREEN+BLUE));
+}
+
+
 int main(){
 
 	return 0;
