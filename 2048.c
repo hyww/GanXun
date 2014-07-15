@@ -279,7 +279,7 @@ int main(){
 	int tiles[4][4]={0};
 	int steps=0;
 	char input;
-	newgame();
+	newGame();
 	splashScreen();
 	scanf("%c", &input);
 
