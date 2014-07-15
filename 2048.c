@@ -412,7 +412,7 @@ int main(){
 		}		
 		
 		if(achieve_2048(tiles))gameOver(1,steps);
-		if(!isfull(tiles))gameOver(0,steps);
+		if(isfull(tiles))gameOver(0,steps);
 		generate(tiles);
 		steps++;
 		refresh(tiles,steps);
