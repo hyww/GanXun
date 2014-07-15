@@ -34,10 +34,10 @@ void generate(int tiles[4][4]){
 	srand(time(NULL));
 	a=rand()%3;
 	if(a==0||a==1){
-		b=2;
+		b=1;
 	}
 	if(a==2){
-		b=4;
+		b=2;
 	}
 	while(1){
 		i=rand()%4;
@@ -133,8 +133,8 @@ void refresh(int tiles[4][4], int steps){
 		for(j=0;j<3;j++){
 			colorPrint(lineColor, "|");
 			for(i=0;i<4;i++){
-				if(j!=1)colorPrint(backColor[tiles[i][j]], "       ");
-				else printNum(tiles[i][j]);
+				if(j!=1)colorPrint(backColor[tiles[i][k]], "       ");
+				else printNum(tiles[i][k]);
 				colorPrint(lineColor, "|");
 			}
 			printf("\n");
@@ -155,10 +155,23 @@ void move(int tiles[4][4], int direction){
 			//up
 			int i;
 			int j;
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 0; j < 4; j++){
+					if(tiles[i][j] != 0){
+						buf[count] = tiles[i][j];
+						count++;
+					}
+				}
+				for(j = 0; j < 4; j++){
+					tiles[i][j] = buf[j];
+				}
+			} 
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 0; j < 3; j++){
-					if(tiles[i][j] == tiles[i][j+1]){
+					if(tiles[i][j] == tiles[i][j+1]&&tiles[i][j]!=0){
 						tiles[i][j]++;
 						tiles[i][j+1] = 0;
 					}
@@ -184,10 +197,23 @@ void move(int tiles[4][4], int direction){
 			//down
 			int i;
 			int j;
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 3; j >= 0; j--){
+					if(tiles[i][j] != 0){
+						buf[count] = tiles[i][j];
+						count++;
+					}
+				}
+				for(j = 3; j >= 0; j--){
+					tiles[i][j] = buf[3-j];
+				}
+			} 
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 3; j > 0; j--){
-					if(tiles[i][j] == tiles[i][j-1]){
+					if(tiles[i][j] == tiles[i][j-1]&&tiles[i][j]!=0){
 						tiles[i][j]++;
 						tiles[i][j-1] = 0;
 					}
@@ -213,10 +239,23 @@ void move(int tiles[4][4], int direction){
 			//left
 			int i;
 			int j;
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 0; j < 4; j++){
+					if(tiles[j][i] != 0){
+						buf[count] = tiles[j][i];
+						count++;
+					}
+				}
+				for(j = 0; j < 4; j++){
+					tiles[j][i] = buf[j];
+				}
+			} 
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 0; j < 3; j++){
-					if(tiles[j][i] == tiles[j+1][i]){
+					if(tiles[j][i] == tiles[j+1][i]&&tiles[j][i]!=0){
 						tiles[j][i]++;
 						tiles[j+1][i] = 0;
 					}
@@ -242,10 +281,23 @@ void move(int tiles[4][4], int direction){
 			//right
 			int i;
 			int j;
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 3; j >= 0; j--){
+					if(tiles[j][i] != 0){
+						buf[count] = tiles[j][i];
+						count++;
+					}
+				}
+				for(j = 3; j >= 0; j--){
+					tiles[j][i] = buf[3-j];
+				}
+			} 
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 3; j > 0; j--){
-					if(tiles[j][i] == tiles[j-1][i]){
+					if(tiles[j][i] == tiles[j-1][i]&&tiles[j][i]!=0){
 						tiles[j][i]++;
 						tiles[j-1][i] = 0;
 					}
@@ -315,7 +367,9 @@ int achieve_2048(int tiles[4][4])
 	}
 	return 0;
 }
+
 int main(){
+
 	int tiles[4][4]={0};
 	int steps=0;
 	char input;
@@ -334,16 +388,35 @@ int main(){
 
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		else if(input==11||input==12||input==13||input==14)
+
+		switch(input)
 		{
-			move(tiles,input-11);
-			if(achieve_2048(tiles))gameOver(1,steps);
-			if(!isfull(tiles))gameOver(0,steps);
-			generate(tiles);
-			steps++;
-			refresh(tiles,steps);
-			//Inputs: arrows, enter, q, ctrl+c, ....
-		}
+			case 'w':
+				move(tiles,0);
+			break;
+
+			case 's':
+				move(tiles,1);
+			break;
+
+			case 'a':
+				move(tiles,2);
+			break;
+
+			case 'd':
+				move(tiles,3);
+			break;
+
+			default:
+				continue;
+		}		
+		
+		if(achieve_2048(tiles))gameOver(1,steps);
+		if(!isfull(tiles))gameOver(0,steps);
+		generate(tiles);
+		steps++;
+		refresh(tiles,steps);
+		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
 	
 	
