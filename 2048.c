@@ -47,7 +47,7 @@ void splashScreen(){
 }
 
 //just like splashScreen(), but displays when you lose XD
-void gameOver(int status){
+void gameOver(int status, int steps){
 	switch(status){
 		case 0:
 			//fail
@@ -59,6 +59,16 @@ void gameOver(int status){
 	}
 }
 
+void newGame(int tiles[4][4], int *steps){
+	int i,j;
+	for(i=0;i<=3;i++){
+		for(j=0;j<=3;j++){
+			tiles[i][j]=0;
+		}
+	}
+	*steps=0;
+}
+
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
 void printNum(int num){
 	char *nums[]={"       ", "   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
@@ -68,7 +78,7 @@ void printNum(int num){
 }
 
 //print out current status
-void refresh(int tiles[4][4]){
+void refresh(int tiles[4][4], int steps){
 	char *top="¢z¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢{\n";
 	char *middle="¢u¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢t\n";
 	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
@@ -94,6 +104,8 @@ void refresh(int tiles[4][4]){
 	}
 	colorPrint(lineColor, bottom);
 	
+	//print steps
+	
 }
 
 //change the status of tiles by moving in different directions
@@ -117,34 +129,42 @@ void move(int tiles[4][4], int direction){
 int isfull(int tiles[4][4]){
 	
 }
-bool achieve_2048(tiles)
-{
-	for(int i=0;i<4;i++)
+int achieve_2048(int tiles[4][4])
+{	int i,j;
+	for(i=0;i<4;i++)
 	{
-		for(int j=0;j<4;j++)
+		for(j=0;j<4;j++)
 		{
 			if(tiles[i][j]==11)
-			return true;
+			return 1;
 		}
 	}
-	return false;
+	return 0;
 }
 int main(){
 	int tiles[4][4]={0};
+	int steps=0;
 	char input;
 	newgame();
 	splashScreen();
 	scanf("%c", &input);
-	refresh(tiles);
+
+	refresh(tiles, steps);
 	generate(tiles);
 	generate(tiles);
-	while(1){		
+		
+
+	refresh(tiles, steps);
+	
+	while(1){
+
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		else if(input==11||input==12||input==13||input==14)move(input);
-		if(achieve_2048)gameOver(1);
-		if(!isfull(tiles))gameOver(0);
+		else if(input==11||input==12||input==13||input==14)move(tiles,input);
+		if(achieve_2048)gameOver(1,steps);
+		if(!isfull(tiles))gameOver(0,steps);
 		generate(tiles);
+		steps++;
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
 	
