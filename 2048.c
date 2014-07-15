@@ -47,14 +47,21 @@ void splashScreen(){
 }
 
 //just like splashScreen(), but displays when you lose XD
-void gameOver(){
-
+void gameOver(int status){
+	switch(status){
+		case 0:
+			//fail
+			break;
+		case 1:
+			//success
+			break;
+	}
 }
 
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
 void printNum(int num){
 	char *nums[]={"       ", "   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
-	//int colors[]={(), (), (), (), (), (), (), (), (), ()};
+	//int colors[]={(), (), (), (), (), (), (), (), (), (), ()};
 	int colors=BLUE+GREEN+RED+BRIGHT;
 	colorPrint(colors, nums[num]);
 }
@@ -66,7 +73,7 @@ void refresh(int tiles[4][4]){
 	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
 	int lineColor=(RED+BLUE+GREEN);
 	int i, j, k;
-	//int backColor[]={(), (), (), (), (), (), (), (), (), ()};  should be the same as colors in printNum()
+	//int backColor[]={(), (), (), (), (), (), (), (), (), (), ()};  should be the same as colors in printNum()
 	int backColor=0;
 	
 	clear();
@@ -104,6 +111,10 @@ void move(int tiles[4][4], int direction){
 			//right
 			break;
 	}
+}
+
+int isfull(int tiles[4][4]){
+	
 }
 
 int main(){
