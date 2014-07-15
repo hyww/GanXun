@@ -29,6 +29,26 @@ void colorPrint(int color, char *str){
 	SetConsoleTextAttribute ( hConsole, (RED+GREEN+BLUE));
 }
 
+void generate(int tiles[4][4]){
+	int i,j,a,b;
+	srand(time(NULL));
+	i=rand()%4;
+	j=rand()%4;
+	a=rand()%3;
+	if(a==0||a==1){
+		b=2;
+	}
+	if(a==2){
+		b=4;
+	}
+	while(1){
+		if(tiles[i][j]==0){
+			tiles[i][j]=b;
+			break;
+		}
+	}
+}
+
 //the splash  screen shown when the game starts
 void splashScreen(){
 	char line1[]="¢~ùù¢¡¢~ùù¢¡  ¢~¢¡¢~ùù¢¡\n";
@@ -103,6 +123,7 @@ void refresh(int tiles[4][4], int steps){
 		if(k!=3)colorPrint(lineColor, middle);
 	}
 	colorPrint(lineColor, bottom);
+	printf("%d" ,steps);
 	
 	//print steps
 	
