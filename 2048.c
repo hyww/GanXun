@@ -279,7 +279,7 @@ int main(){
 	int tiles[4][4]={0};
 	int steps=0;
 	char input;
-	newGame();
+	newGame(tiles, &steps);
 	splashScreen();
 	scanf("%c", &input);
 
@@ -294,11 +294,12 @@ int main(){
 
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		else if(input==11||input==12||input==13||input==14)move(tiles,input);
+		else if(input==11||input==12||input==13||input==14)move(tiles,input-11);
 		if(achieve_2048)gameOver(1,steps);
 		if(!isfull(tiles))gameOver(0,steps);
 		generate(tiles);
 		steps++;
+		refresh(tiles,steps);
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
 	
