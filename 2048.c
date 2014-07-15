@@ -9,6 +9,7 @@
 #define BLUE 1
 #define BRIGHT 8
 
+
 //clear the terminal output
 void clear(){
 	system("cls");
@@ -116,7 +117,7 @@ void newGame(int tiles[4][4], int *steps){
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
 void printNum(int num){
 	char *nums[]={"       ", "   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
-	int colors[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN)*16)};
+	int colors[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((BLUE+BRIGHT)*16+15), ((GREEN)*16+15), ((GREEN+BLUE)*16+15), ((GREEN+RED)*16+15), ((BLUE+RED)*16+15), ((RED+BLUE+BRIGHT)*16), ((RED+BRIGHT)*16), ((RED)*16+15)};
 	colorPrint(colors[num], nums[num]);
 }
 
@@ -127,7 +128,7 @@ void refresh(int tiles[4][4], int steps){
 	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
 	int lineColor=(RED+BLUE+GREEN);
 	int i, j, k;
-	int backColor[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN)*16)};
+	int backColor[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((BLUE+BRIGHT)*16+15), ((GREEN)*16), ((GREEN+BLUE)*16), ((GREEN+RED)*16), ((BLUE+RED)*16+15), ((RED+BLUE+BRIGHT)*16), ((RED+BRIGHT)*16), ((RED)*16+15)};
 	
 	clear();
 	colorPrint(lineColor, top);
@@ -406,6 +407,10 @@ int main(){
 	int steps=0;
 	int moved=0;
 	char input;
+	/*int i;
+	for(i=0;i<13;i++){
+		printNum(i);
+	}*/
 	newGame(tiles, &steps);
 	splashScreen();
 	scanf("%c", &input);
