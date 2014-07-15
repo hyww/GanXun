@@ -59,7 +59,13 @@ void gameOver(int status, int steps){
 }
 
 void newGame(int tiles[4][4], int *steps){
-	
+	int i,j;
+	for(i=0;i<=3;i++){
+		for(j=0;j<=3;j++){
+			tiles[i][j]=0;
+		}
+	}
+	*steps=0;
 }
 
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
