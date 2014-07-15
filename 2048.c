@@ -51,6 +51,7 @@ void gameOver(int status){
 	switch(status){
 		case 0:
 			//fail
+			
 			break;
 		case 1:
 			//success
@@ -116,19 +117,34 @@ void move(int tiles[4][4], int direction){
 int isfull(int tiles[4][4]){
 	
 }
-
+bool achieve_2048(tiles)
+{
+	for(int i=0;i<4;i++)
+	{
+		for(int j=0;j<4;j++)
+		{
+			if(tiles[i][j]==11)
+			return true;
+		}
+	}
+	return false;
+}
 int main(){
 	int tiles[4][4]={0};
 	char input;
-	
+	newgame();
 	splashScreen();
 	scanf("%c", &input);
 	refresh(tiles);
-	
-	while(1){
+	generate(tiles);
+	generate(tiles);
+	while(1){		
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		
+		else if(input==11||input==12||input==13||input==14)move(input);
+		if(achieve_2048)gameOver(1);
+		if(!isfull(tiles))gameOver(0);
+		generate(tiles);
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
 	
