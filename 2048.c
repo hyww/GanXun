@@ -49,12 +49,33 @@ void splashScreen(){
 //just like splashScreen(), but displays when you lose XD
 void gameOver(int status, int steps){
 	switch(status){
-		case 0:
-			//fail
-			break;
-		case 1:
-			//success
-			break;
+		case 0:{
+			char line_1[]="שזשששששש   שזשששט      שזשט  שזשט    שזשששששש\n";
+			char line_2[]="שר         שר  שר      שרשר  שרשר    שר      \n";
+			char line_3[]="שר        שר    שר    שר  שרשר  שר   שישששששש\n";
+			char line_4[]="שר    שח  שישששששכ    שר  שלשמ  שר   שר      \n";
+			char line_5[]="שר    שר שר      שר  שר          שר  שר      \n";
+			char line_6[]="שלשששששם שר      שר  שר          שר  שלשששששש\n";
+			char line_7[]="                                             \n";
+			char line_8[]="¢¨¢i¢i¢i¢©  ¢i        ¢i   ¢i¢i¢i¢i   ¢i¢i¢i¢©\n";
+			char line_9[]="¢i      ¢i   ¢i      ¢i    ¢i         ¢i    ¢i\n";
+			char line_10[]="¢i      ¢i    ¢i    ¢i     ¢i         ¢i    ¢i\n";
+			char line_11[]="¢i      ¢i     ¢i  ¢i      ¢i¢i¢i¢i   ¢i¢i¢i¢«\n";
+			char line_12[]="¢i      ¢i      ¢n ¢n      ¢i         ¢i  ¢©  \n";
+			char line_13[]="¢×¢i¢i¢i¢«      ¢×¢«       ¢i¢i¢i¢i   ¢i  ¢i¢©\n";
+			break;}
+		case 1:{
+
+			char line_1[]="¢¨¢i¢i¢©  ¢i    ¢i ¢¨¢i¢i¢i  ¢¨¢i¢i¢i ¢¨¢i¢i¢i ¢¨¢i¢i¢© ¢¨¢i¢i¢©\n";
+			char line_2[]="¢i        ¢i    ¢i ¢i        ¢i       ¢i       ¢i       ¢i      \n";
+			char line_3[]="¢i¢i¢i¢i  ¢i    ¢i ¢i        ¢i       ¢i¢i¢i¢i ¢i¢i¢i¢i ¢i¢i¢i¢i\n";
+			char line_4[]="      ¢i  ¢i    ¢i ¢i        ¢i       ¢i             ¢i       ¢i\n";
+			char line_5[]="¢×¢i¢i¢«  ¢×¢i¢i¢« ¢×¢i¢i¢i  ¢×¢i¢i¢i ¢×¢i¢i¢i ¢×¢i¢i¢« ¢×¢i¢i¢«\n";
+			char line_6[]="                                                                \n";
+			char line_7[]="                                    ¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸\n";
+			char line_8[]="                                          ¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸¡¹¡¸\n";
+			
+			break;}
 	}
 }
 
