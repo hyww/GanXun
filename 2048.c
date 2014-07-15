@@ -29,6 +29,26 @@ void colorPrint(int color, char *str){
 	SetConsoleTextAttribute ( hConsole, (RED+GREEN+BLUE));
 }
 
+void generate(int tiles[4][4]){
+	int i,j,a,b;
+	srand(time(NULL));
+	i=rand()%4;
+	j=rand()%4;
+	a=rand()%3;
+	if(a==0||a==1){
+		b=2;
+	}
+	if(a==2){
+		b=4;
+	}
+	while(1){
+		if(tiles[i][j]==0){
+			tiles[i][j]=b;
+			break;
+		}
+	}
+}
+
 //the splash  screen shown when the game starts
 void splashScreen(){
 	char line1[]="╭═╮╭═╮  ╭╮╭═╮\n";
@@ -76,11 +96,18 @@ void gameOver(int status, int steps){
 			char line_8[]="                                          ★☆★☆★☆★☆★☆★☆\n";
 			
 			break;}
+
 	}
 }
 
 void newGame(int tiles[4][4], int *steps){
-	
+	int i,j;
+	for(i=0;i<=3;i++){
+		for(j=0;j<=3;j++){
+			tiles[i][j]=0;
+		}
+	}
+	*steps=0;
 }
 
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
@@ -117,6 +144,7 @@ void refresh(int tiles[4][4], int steps){
 		if(k!=3)colorPrint(lineColor, middle);
 	}
 	colorPrint(lineColor, bottom);
+	printf("%d" ,steps);
 	
 	//print steps
 	
@@ -125,38 +153,195 @@ void refresh(int tiles[4][4], int steps){
 //change the status of tiles by moving in different directions
 void move(int tiles[4][4], int direction){
 	switch(direction){
-		case 0:
+		case 0:{
 			//up
+			int i;
+			int j;
+			//先合併 
+			for(i = 0; i < 4 ; i++){
+				for(j = 0; j < 3; j++){
+					if(tiles[i][j] == tiles[i][j+1]){
+						tiles[i][j]++;
+						tiles[i][j+1] = 0;
+					}
+				}
+			}
+			//移動
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 0; j < 4; j++){
+					if(tiles[i][j] != 0){
+						buf[count] = tiles[i][j];
+						count++;
+					}
+				}
+				for(j = 0; j < 4; j++){
+					tiles[i][j] = buf[j];
+				}
+			} 
 			break;
-		case 1:
+		}
+		case 1:{
 			//down
+			int i;
+			int j;
+			//先合併 
+			for(i = 0; i < 4 ; i++){
+				for(j = 3; j > 0; j--){
+					if(tiles[i][j] == tiles[i][j-1]){
+						tiles[i][j]++;
+						tiles[i][j-1] = 0;
+					}
+				}
+			}
+			//移動
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 3; j >= 0; j--){
+					if(tiles[i][j] != 0){
+						buf[count] = tiles[i][j];
+						count++;
+					}
+				}
+				for(j = 3; j >= 0; j--){
+					tiles[i][j] = buf[3-j];
+				}
+			} 
 			break;
-		case 2:
+		}
+		case 2:{
 			//left
+			int i;
+			int j;
+			//先合併 
+			for(i = 0; i < 4 ; i++){
+				for(j = 0; j < 3; j++){
+					if(tiles[j][i] == tiles[j+1][i]){
+						tiles[j][i]++;
+						tiles[j+1][i] = 0;
+					}
+				}
+			}
+			//移動
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 0; j < 4; j++){
+					if(tiles[j][i] != 0){
+						buf[count] = tiles[j][i];
+						count++;
+					}
+				}
+				for(j = 0; j < 4; j++){
+					tiles[j][i] = buf[j];
+				}
+			} 
 			break;
-		case 3:
+		}
+		case 3:{
 			//right
+			int i;
+			int j;
+			//先合併 
+			for(i = 0; i < 4 ; i++){
+				for(j = 3; j > 0; j--){
+					if(tiles[j][i] == tiles[j-1][i]){
+						tiles[j][i]++;
+						tiles[j-1][i] = 0;
+					}
+				}
+			}
+			//移動
+			for(i = 0; i < 4; i++){
+				int buf[4] = {0,0,0,0};
+				int count = 0;
+				for(j = 3; j >= 0; j--){
+					if(tiles[j][i] != 0){
+						buf[count] = tiles[j][i];
+						count++;
+					}
+				}
+				for(j = 3; j >= 0; j--){
+					tiles[j][i] = buf[3-j];
+				}
+			} 
 			break;
+		}
 	}
 }
 
 int isfull(int tiles[4][4]){
+	int i=0;
+	int j=0;
 	
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<4;j++)
+		{
+			if(tiles[i][j]==0)
+				return 0;
+		}
+	}
+		
+	//先判斷橫的 
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(tiles[j][i]==tiles[j+1][i])
+				return 0;
+		}
+	}
+	
+	//再判斷直的 
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(tiles[i][j]==tiles[i][j+1])
+				return 0;
+		}
+	}
 }
-
+int achieve_2048(int tiles[4][4])
+{	int i,j;
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<4;j++)
+		{
+			if(tiles[i][j]==11)
+			return 1;
+		}
+	}
+	return 0;
+}
 int main(){
 	int tiles[4][4]={0};
 	int steps=0;
 	char input;
-	
+	newGame(tiles, &steps);
 	splashScreen();
 	scanf("%c", &input);
+
+	refresh(tiles, steps);
+	generate(tiles);
+	generate(tiles);
+		
+
 	refresh(tiles, steps);
 	
 	while(1){
+
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		
+		else if(input==11||input==12||input==13||input==14)move(tiles,input-11);
+		if(achieve_2048)gameOver(1,steps);
+		if(!isfull(tiles))gameOver(0,steps);
+		generate(tiles);
+		steps++;
+		refresh(tiles,steps);
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
 	
