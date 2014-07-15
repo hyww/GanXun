@@ -102,6 +102,7 @@ void refresh(int tiles[4][4], int steps){
 		if(k!=3)colorPrint(lineColor, middle);
 	}
 	colorPrint(lineColor, bottom);
+	printf("%d" ,steps);
 	
 	//print steps
 	
