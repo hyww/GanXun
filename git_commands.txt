@@ -1,0 +1,33 @@
+//設定使用者名稱及email
+
+git config --global user.name "your name"
+git config --global user.email "you@server"
+
+
+
+//讓git記住帳密
+git config credential.helper store
+
+
+//設定push預設模式
+git config --global push.default simple
+
+
+//目前狀態，注意顯示的是local端commit前/後的狀態
+git status
+
+
+//將檔案加到待commit的staging area(待存檔)
+git add filename
+
+
+//commit也就是存檔，後面加上存檔描述
+git commit -m "commit message"
+
+
+//將commits push到github上
+git push
+
+
+//將github端的拉下來
+git pull
