@@ -149,23 +149,28 @@ void refresh(int tiles[4][4], int steps){
 }
 
 //change the status of tiles by moving in different directions
-void move(int tiles[4][4], int direction){
+int move(int tiles[4][4], int direction){
+	int moved=0;
 	switch(direction){
 		case 0:{
 			//up
 			int i;
 			int j;
+			int k;
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
 				for(j = 0; j < 4; j++){
-					if(tiles[i][j] != 0){
-						buf[count] = tiles[i][j];
-						count++;
+					if(tiles[i][j] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[i][k]){
+								moved=1;
+								tiles[i][j]=tiles[i][k];
+								tiles[i][k]=0;
+								break;
+							}
+							k++;
+						}
 					}
-				}
-				for(j = 0; j < 4; j++){
-					tiles[i][j] = buf[j];
 				}
 			} 
 			//先合併 
@@ -174,21 +179,25 @@ void move(int tiles[4][4], int direction){
 					if(tiles[i][j] == tiles[i][j+1]&&tiles[i][j]!=0){
 						tiles[i][j]++;
 						tiles[i][j+1] = 0;
+						moved=1;
 					}
 				}
 			}
 			//移動
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
 				for(j = 0; j < 4; j++){
-					if(tiles[i][j] != 0){
-						buf[count] = tiles[i][j];
-						count++;
+					if(tiles[i][j] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[i][k]){
+								moved=1;
+								tiles[i][j]=tiles[i][k];
+								tiles[i][k]=0;
+								break;
+							}
+							k++;
+						}
 					}
-				}
-				for(j = 0; j < 4; j++){
-					tiles[i][j] = buf[j];
 				}
 			} 
 			break;
@@ -196,18 +205,21 @@ void move(int tiles[4][4], int direction){
 		case 1:{
 			//down
 			int i;
-			int j;
+			int j, k;
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
-				for(j = 3; j >= 0; j--){
-					if(tiles[i][j] != 0){
-						buf[count] = tiles[i][j];
-						count++;
+				for(j = 0; j < 4; j++){
+					if(tiles[i][3-j] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[i][3-k]){
+								moved=1;
+								tiles[i][3-j]=tiles[i][3-k];
+								tiles[i][3-k]=0;
+								break;
+							}
+							k++;
+						}
 					}
-				}
-				for(j = 3; j >= 0; j--){
-					tiles[i][j] = buf[3-j];
 				}
 			} 
 			//先合併 
@@ -221,16 +233,19 @@ void move(int tiles[4][4], int direction){
 			}
 			//移動
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
-				for(j = 3; j >= 0; j--){
-					if(tiles[i][j] != 0){
-						buf[count] = tiles[i][j];
-						count++;
+				for(j = 0; j < 4; j++){
+					if(tiles[i][3-j] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[i][3-k]){
+								moved=1;
+								tiles[i][3-j]=tiles[i][3-k];
+								tiles[i][3-k]=0;
+								break;
+							}
+							k++;
+						}
 					}
-				}
-				for(j = 3; j >= 0; j--){
-					tiles[i][j] = buf[3-j];
 				}
 			} 
 			break;
@@ -238,20 +253,23 @@ void move(int tiles[4][4], int direction){
 		case 2:{
 			//left
 			int i;
-			int j;
+			int j, k;
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
 				for(j = 0; j < 4; j++){
-					if(tiles[j][i] != 0){
-						buf[count] = tiles[j][i];
-						count++;
+					if(tiles[j][i] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[k][i]){
+								moved=1;
+								tiles[j][i]=tiles[k][i];
+								tiles[k][i]=0;
+								break;
+							}
+							k++;
+						}
 					}
 				}
-				for(j = 0; j < 4; j++){
-					tiles[j][i] = buf[j];
-				}
-			} 
+			}  
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 0; j < 3; j++){
@@ -263,37 +281,43 @@ void move(int tiles[4][4], int direction){
 			}
 			//移動
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
 				for(j = 0; j < 4; j++){
-					if(tiles[j][i] != 0){
-						buf[count] = tiles[j][i];
-						count++;
+					if(tiles[j][i] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[k][i]){
+								moved=1;
+								tiles[j][i]=tiles[k][i];
+								tiles[k][i]=0;
+								break;
+							}
+							k++;
+						}
 					}
 				}
-				for(j = 0; j < 4; j++){
-					tiles[j][i] = buf[j];
-				}
-			} 
+			}  
 			break;
 		}
 		case 3:{
 			//right
 			int i;
-			int j;
+			int j, k;
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
-				for(j = 3; j >= 0; j--){
-					if(tiles[j][i] != 0){
-						buf[count] = tiles[j][i];
-						count++;
+				for(j = 0; j < 4; j++){
+					if(tiles[3-j][i] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[3-k][i]){
+								moved=1;
+								tiles[3-j][i]=tiles[3-k][i];
+								tiles[3-k][i]=0;
+								break;
+							}
+							k++;
+						}
 					}
 				}
-				for(j = 3; j >= 0; j--){
-					tiles[j][i] = buf[3-j];
-				}
-			} 
+			}  
 			//先合併 
 			for(i = 0; i < 4 ; i++){
 				for(j = 3; j > 0; j--){
@@ -305,21 +329,25 @@ void move(int tiles[4][4], int direction){
 			}
 			//移動
 			for(i = 0; i < 4; i++){
-				int buf[4] = {0,0,0,0};
-				int count = 0;
-				for(j = 3; j >= 0; j--){
-					if(tiles[j][i] != 0){
-						buf[count] = tiles[j][i];
-						count++;
+				for(j = 0; j < 4; j++){
+					if(tiles[3-j][i] == 0){
+						k=j+1;
+						while(k<4){
+							if(tiles[3-k][i]){
+								moved=1;
+								tiles[3-j][i]=tiles[3-k][i];
+								tiles[3-k][i]=0;
+								break;
+							}
+							k++;
+						}
 					}
 				}
-				for(j = 3; j >= 0; j--){
-					tiles[j][i] = buf[3-j];
-				}
-			} 
+			}  
 			break;
 		}
 	}
+	return moved;
 }
 
 int isfull(int tiles[4][4]){
@@ -372,6 +400,7 @@ int main(){
 
 	int tiles[4][4]={0};
 	int steps=0;
+	int moved=0;
 	char input;
 	newGame(tiles, &steps);
 	splashScreen();
@@ -392,19 +421,19 @@ int main(){
 		switch(input)
 		{
 			case 'w':
-				move(tiles,0);
+				moved=move(tiles,0);
 			break;
 
 			case 's':
-				move(tiles,1);
+				moved=move(tiles,1);
 			break;
 
 			case 'a':
-				move(tiles,2);
+				moved=move(tiles,2);
 			break;
 
 			case 'd':
-				move(tiles,3);
+				moved=move(tiles,3);
 			break;
 
 			default:
@@ -413,8 +442,11 @@ int main(){
 		
 		if(achieve_2048(tiles))gameOver(1,steps);
 		if(isfull(tiles))gameOver(0,steps);
-		generate(tiles);
-		steps++;
+		if(moved){
+			moved=0;
+			generate(tiles);
+  			steps++;
+		}
 		refresh(tiles,steps);
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
