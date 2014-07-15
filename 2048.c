@@ -32,8 +32,6 @@ void colorPrint(int color, char *str){
 void generate(int tiles[4][4]){
 	int i,j,a,b;
 	srand(time(NULL));
-	i=rand()%4;
-	j=rand()%4;
 	a=rand()%3;
 	if(a==0||a==1){
 		b=2;
@@ -42,6 +40,8 @@ void generate(int tiles[4][4]){
 		b=4;
 	}
 	while(1){
+		i=rand()%4;
+		j=rand()%4;
 		if(tiles[i][j]==0){
 			tiles[i][j]=b;
 			break;
@@ -315,13 +315,16 @@ int main(){
 
 		input=getch();
 		if(input==3)break; //program ends when ctrl+c is pressed
-		else if(input==11||input==12||input==13||input==14)move(tiles,input-11);
-		if(achieve_2048)gameOver(1,steps);
-		if(!isfull(tiles))gameOver(0,steps);
-		generate(tiles);
-		steps++;
-		refresh(tiles,steps);
-		//Inputs: arrows, enter, q, ctrl+c, ....
+		else if(input==11||input==12||input==13||input==14)
+		{
+			move(tiles,input-11);
+			if(achieve_2048(tiles))gameOver(1,steps);
+			if(!isfull(tiles))gameOver(0,steps);
+			generate(tiles);
+			steps++;
+			refresh(tiles,steps);
+			//Inputs: arrows, enter, q, ctrl+c, ....
+		}
 	}
 	
 	return 0;
