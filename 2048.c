@@ -113,9 +113,8 @@ void newGame(int tiles[4][4], int *steps){
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
 void printNum(int num){
 	char *nums[]={"       ", "   2   ", "   4   ", "   8   ", "  1 6  ", "  3 2  ", "  6 4  ", "  128  ", "  256  ", "  512  ", "1 0 2 4", "2 0 4 8"};
-	//int colors[]={(), (), (), (), (), (), (), (), (), (), ()};
-	int colors=BLUE+GREEN+RED+BRIGHT;
-	colorPrint(colors, nums[num]);
+	int colors[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN)*16)};
+	colorPrint(colors[num], nums[num]);
 }
 
 //print out current status
@@ -125,8 +124,7 @@ void refresh(int tiles[4][4], int steps){
 	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
 	int lineColor=(RED+BLUE+GREEN);
 	int i, j, k;
-	//int backColor[]={(), (), (), (), (), (), (), (), (), (), ()};  should be the same as colors in printNum()
-	int backColor=0;
+	int backColor[]={((RED+BLUE+GREEN+BRIGHT)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN)*16), ((GREEN+RED+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((BLUE+BRIGHT)*16), ((GREEN+BLUE+BRIGHT)*16), ((GREEN+BRIGHT)*16), ((GREEN)*16)};
 	
 	clear();
 	colorPrint(lineColor, top);
@@ -135,7 +133,7 @@ void refresh(int tiles[4][4], int steps){
 		for(j=0;j<3;j++){
 			colorPrint(lineColor, "|");
 			for(i=0;i<4;i++){
-				if(j!=1)colorPrint(backColor, "       ");
+				if(j!=1)colorPrint(backColor[tiles[i][j]], "       ");
 				else printNum(tiles[i][j]);
 				colorPrint(lineColor, "|");
 			}
@@ -344,6 +342,7 @@ int main(){
 		refresh(tiles,steps);
 		//Inputs: arrows, enter, q, ctrl+c, ....
 	}
+	
 	
 	return 0;
 }
