@@ -47,7 +47,7 @@ void splashScreen(){
 }
 
 //just like splashScreen(), but displays when you lose XD
-void gameOver(int status){
+void gameOver(int status, int steps){
 	switch(status){
 		case 0:
 			//fail
@@ -56,6 +56,10 @@ void gameOver(int status){
 			//success
 			break;
 	}
+}
+
+void newGame(int tiles[4][4], int *steps){
+	
 }
 
 //in the program we use 1, 2, 3... instead of 2, 4, 8...
@@ -67,7 +71,7 @@ void printNum(int num){
 }
 
 //print out current status
-void refresh(int tiles[4][4]){
+void refresh(int tiles[4][4], int steps){
 	char *top="¢z¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢{\n";
 	char *middle="¢u¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢t\n";
 	char *bottom="¢|¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢}\n";
@@ -92,6 +96,8 @@ void refresh(int tiles[4][4]){
 		if(k!=3)colorPrint(lineColor, middle);
 	}
 	colorPrint(lineColor, bottom);
+	
+	//print steps
 	
 }
 
@@ -119,11 +125,12 @@ int isfull(int tiles[4][4]){
 
 int main(){
 	int tiles[4][4]={0};
+	int steps=0;
 	char input;
 	
 	splashScreen();
 	scanf("%c", &input);
-	refresh(tiles);
+	refresh(tiles, steps);
 	
 	while(1){
 		input=getch();
